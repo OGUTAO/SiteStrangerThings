@@ -11,6 +11,9 @@
     <link rel="stylesheet" href="css/style.css" />
 </head>
 <body class="login-page d-flex flex-column min-vh-100">
+
+    <div class="login-background"></div>
+
     <div class="container d-flex flex-grow-1 justify-content-center align-items-center">
         <div class="login-container text-white p-4 rounded shadow-lg">
             <h2 class="text-center mb-4 stranger-title">Acesso Restrito</h2>
@@ -34,8 +37,8 @@
         document.getElementById('loginForm').addEventListener('submit', function(event) {
             event.preventDefault();
 
-            const username = document.getElementById('inputUser').value; // Usar inputUser
-            const password = document.getElementById('inputPassword').value; // Usar inputPassword
+            const username = document.getElementById('inputUser').value;
+            const password = document.getElementById('inputPassword').value;
             const loginMessage = document.getElementById('loginMessage');
 
             if (username === 'admin' && password === 'admin') {
