@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Stranger Things - Personagens</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css" />
+</head>
+<body class="characters-page">
+    <nav class="navbar navbar-expand-lg fixed-top">
+        <div class="container">
+            <a class="navbar-brand stranger-title" href="home.html">Stranger Things</a> <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="home.html">Início</a> </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="characters.html">Personagens</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="curiosidades.html">Curiosidades</a>
+                    </li>
+                    <li class="nav-item">
+                        <button class="btn btn-stranger-outline ms-lg-3" id="btnLogout">Sair</button>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container page-content">
+        <h2 class="mb-5 text-center section-title">Conheça os Personagens</h2>
+        <div class="row" id="charactersList">
+            </div>
+    </div>
+
+    <div class="modal fade" id="characterModal" tabindex="-1" aria-labelledby="characterModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="characterModalLabel"></h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Fechar"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-5 text-center">
+                            <img src="" alt="Foto do personagem" id="modalImage" class="img-fluid rounded mb-3 mb-md-0" />
+                        </div>
+                        <div class="col-md-7">
+                            <h6>Descrição:</h6>
+                            <p id="modalDescription"></p>
+                            <h6 class="mt-3">Curiosidades:</h6>
+                            <ul id="modalTrivia"></ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        const characters = [
+        {
+            name: "Eleven (Onze)",
+            image: "img/onze.jpg", 
+            description: "Uma menina com poderes telecinéticos e psicocinéticos que escapou de um laboratório secreto em Hawkins.",
+            trivia: [
+                "Seu nome de nascimento é Jane Ives.",
+                "Ela adora waffles da marca Eggo.",
+                "Tem uma ligação psíquica com o Mundo Invertido."
+            ]
+        },
+        {
+            name: "Mike Wheeler",
+            image: "img/mike.jpg", 
+            description: "Um garoto inteligente e compassivo que se torna o líder de seu grupo de amigos e desenvolve um forte vínculo com Eleven.",
+            trivia: [
+                "É um mestre em Dungeons & Dragons, atuando como o Dungeon Master do grupo.",
+                "Sua lealdade aos amigos é sua maior característica.",
+                "Foi quem deu o nome 'Eleven' para Onze."
+            ]
+        },
+        {
+            name: "Dustin Henderson",
+            image: "img/dustin.jpg", 
+            description: "O cérebro e diplomata do grupo, conhecido por seu raciocínio científico e seu característico distúrbio de desenvolvimento ósseo.",
+            trivia: [
+                "Adotou uma criatura do Mundo Invertido como animal de estimação, chamada Dart.",
+                "Construiu uma torre de rádio amador gigante, a 'Cerebro'.",
+                "Tem uma namorada chamada Suzie, que conheceu no acampamento de ciências."
+            ]
+        },
+        {
+            name: "Lucas Sinclair",
+            image: "img/lucas.jpg", 
+            description: "O membro mais cético e pragmático do grupo, excelente com seu estilingue e muito protetor de seus amigos.",
+            trivia: [
+                "Inicialmente, desconfiava de Eleven.",
+                "Sua irmã mais nova, Erica, é famosa por seu sarcasmo.",
+                "Na 4ª temporada, se torna popular como jogador de basquete."
+            ]
+        },
+        {
+            name: "Will Byers",
+            image: "img/will.jpg", 
+            description: "Um garoto gentil e artístico que desaparece na primeira temporada, sendo levado para o Mundo Invertido.",
+            trivia: [
+                "Continua a ter uma conexão sensorial com o Devorador de Mentes.",
+                "É um artista talentoso, especialmente em desenho e pintura.",
+                "Sua música favorita é 'Should I Stay or Should I Go' do The Clash."
+            ]
+        },
+        {
+            name: "Max Mayfield",
+            image: "img/max.jpg", 
+            description: "Uma skatista durona que se muda para Hawkins e se junta ao grupo, conhecida por sua habilidade em jogos de fliperama.",
+            trivia: [
+                "Seu nome de usuário no fliperama é 'MADMAX'.",
+                "Teve que enfrentar o vilão Vecna na 4ª temporada.",
+                "Sua música favorita, que a salvou, é 'Running Up That Hill' de Kate Bush."
+            ]
+        }
+        ];
+        
+        
+        const container = document.getElementById('charactersList');
+        
+        characters.forEach((char, index) => {
+            const col = document.createElement('div');
+            col.className = "col-12 col-md-6 col-lg-4 mb-4 d-flex align-items-stretch";
+            col.innerHTML = `
+                <div class="card w-100" data-bs-toggle="modal" data-bs-target="#characterModal" data-index="${index}">
+                    <img src="${char.image}" class="card-img-top" alt="Foto de ${char.name}">
+                    <div class="card-body d-flex flex-column">
+                        <h5 class="card-title">${char.name}</h5>
+                        <p class="card-text flex-grow-1">${char.description.substring(0, 80)}...</p>
+                        <a href="#" class="stretched-link"></a>
+                    </div>
+                </div>
+            `;
+            container.appendChild(col);
+        });
+        
+        const characterModal = document.getElementById('characterModal');
+        const modalTitle = document.getElementById('characterModalLabel');
+        const modalImage = document.getElementById('modalImage');
+        const modalDescription = document.getElementById('modalDescription');
+        const modalTrivia = document.getElementById('modalTrivia');
+        
+        characterModal.addEventListener('show.bs.modal', (event) => {
+            const card = event.relatedTarget.closest('.card');
+            if (!card) return;
+        
+            const idx = card.getAttribute('data-index');
+            const char = characters[idx];
+        
+            modalTitle.textContent = char.name;
+            modalImage.src = char.image;
+            modalImage.alt = `Foto de ${char.name}`;
+            modalDescription.textContent = char.description;
+            
+            modalTrivia.innerHTML = '';
+            char.trivia.forEach(item => {
+                const li = document.createElement('li');
+                li.textContent = item;
+                modalTrivia.appendChild(li);
+            });
+        });
+        
+        document.getElementById('btnLogout').addEventListener('click', () => {
+            window.location.href = 'index.html';
+        });
+        </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <footer class="footer">
+        <div class="container text-center py-3">
+            <p>&copy; 2025 Desenvolvido por Luiz</p>
+            </div>
+    </footer>
+</body>
+</html>

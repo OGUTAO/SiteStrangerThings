@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Stranger Things - Login</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css" />
+</head>
+<body class="login-page d-flex flex-column min-vh-100">
+    <div class="container d-flex flex-grow-1 justify-content-center align-items-center">
+        <div class="login-container text-white p-4 rounded shadow-lg">
+            <h2 class="text-center mb-4 stranger-title">Acesso Restrito</h2>
+            <form id="loginForm">
+                <div class="mb-3">
+                    <label for="inputUser" class="form-label text-white">Usuário</label>
+                    <input type="text" class="form-control" id="inputUser" placeholder="Seu nome de usuário" required>
+                </div>
+                <div class="mb-4">
+                    <label for="inputPassword" class="form-label text-white">Senha</label>
+                    <input type="password" class="form-control" id="inputPassword" placeholder="Sua senha" required>
+                </div>
+                <button type="submit" class="btn btn-stranger w-100 mb-3">Entrar no Mundo Invertido</button>
+                <div id="loginMessage" class="text-danger text-center mt-3"></div>
+            </form>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        document.getElementById('loginForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            const username = document.getElementById('inputUser').value; // Usar inputUser
+            const password = document.getElementById('inputPassword').value; // Usar inputPassword
+            const loginMessage = document.getElementById('loginMessage');
+
+            if (username === 'admin' && password === 'admin') {
+                loginMessage.textContent = '';
+                window.location.href = 'home.html';
+            } else {
+                loginMessage.textContent = 'Usuário ou senha incorretos.';
+            }
+        });
+    </script>
+</body>
+</html>
